@@ -5,7 +5,7 @@ from torch.nn import functional as F
 
 
 def bin_act(x):
-	# bin_act = torch.sign(x).detach()
+	bin_act = torch.sign(x).detach()
 	le_clip = x.lt(-1.0).type(torch.float32)
 	ri_clip = x.ge(1.0).type(torch.float32)
 	clip_l = torch.bitwise_and(x.ge(-1.0), x.lt(0.0))
@@ -13,7 +13,7 @@ def bin_act(x):
 	cliped = clip_l * (2 + x) * x + clip_r * (2 - x) * x
 	out = cliped + ri_clip - le_clip
 	# out = torch.tanh(x)
-	return out
+	return bin_act + out - out.detach()
 
 
 def bin_wei(x):

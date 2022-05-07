@@ -50,7 +50,7 @@ def plot_confusion_matrix(cm, classes, cmap, normalize=False, title='Confusion m
 	thresh = cm_nor.max() / 2.
 	for i, j in itertools.product(range(cm_nor.shape[0]), range(cm_nor.shape[1])):
 		plt.text(j, i, format(cm_nor[i, j], '.2f'), horizontalalignment="center",
-		         color="white" if cm_nor[i, j] > thresh else "black", fontsize=14)
+		         color="white" if cm_nor[i, j] > thresh else "black", fontsize=13)
 	plt.tight_layout()
 	plt.ylabel('Predicted Labels', fontsize=13)
 	plt.xlabel('True Labels', fontsize=13)
@@ -82,11 +82,11 @@ def plot_cfm(model, test_loader, classes, mode, cnt, clt):
 
 	attack_types = classes
 	plt.tight_layout()
-	plt.figure(figsize=(9, 8.5))
+	plt.figure(figsize=(6, 6))
 	plt.rcParams['font.sans-serif'] = ['Times New Roman']
 	plot_confusion_matrix(
 		conf_matrix.numpy(), classes=attack_types, cmap=plt.cm.Blues, normalize=True)
-	plt.title('Normalized confusion matrix, with OA=%.2f' % (acc_val), fontsize=14)
+	plt.title('Normalized confusion matrix, with OA=%.2f' % (acc_val), fontsize=13)
 	plt.savefig(fname="../image/%s,Confusion-matrix,%d,%d.pdf" % (mode, cnt, clt), format="pdf", bbox_inches='tight')
 
 
