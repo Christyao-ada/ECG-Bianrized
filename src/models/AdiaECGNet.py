@@ -5,14 +5,14 @@ from torch.nn import functional as F
 
 
 def bin_wei(x, w):
-	# element = x / w
-	# le_clip = element.lt(-1.0).type(torch.float32)
-	# ri_clip = element.ge(1.0).type(torch.float32)
-	# clip_l = torch.bitwise_and(element.ge(-1.0), element.lt(0.0))
-	# clip_r = torch.bitwise_and(element.ge(0.0), element.lt(1.0))
-	# cliped = clip_l * (2 + element) * element + clip_r * (2 - element) * element
-	# out = cliped + ri_clip - le_clip
-	out = torch.tanh(x / w)
+	element = x / w
+	le_clip = element.lt(-1.0).type(torch.float32)
+	ri_clip = element.ge(1.0).type(torch.float32)
+	clip_l = torch.bitwise_and(element.ge(-1.0), element.lt(0.0))
+	clip_r = torch.bitwise_and(element.ge(0.0), element.lt(1.0))
+	cliped = clip_l * (2 + element) * element + clip_r * (2 - element) * element
+	out = cliped + ri_clip - le_clip
+	# out = torch.tanh(x / w)
 
 	return out
 
